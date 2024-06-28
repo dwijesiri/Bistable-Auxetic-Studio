@@ -1,3 +1,4 @@
+
 #
 # Bistable Auxetic Mechanical Studio - Developed By Dinuk Wijesiri
 #
@@ -70,8 +71,6 @@ def LimitScreenSize(ScreenLimit): # Check if Screen is appropriate size
 
 def ValidateInput(Input):
 
-    if Input == "": return True
-
     try:
 
         float(Input) # Try to convert string to float.
@@ -81,6 +80,30 @@ def ValidateInput(Input):
     except ValueError:
 
         return False # Return False if ValueError
+    
+def ValidateTheta(Input):
+
+    if Input == "": return True
+
+    if ValidateInput(Input): # Check if Input is formatted correctly
+        
+        return True if 0 <= float(Input) <= 30 else False # Theta must be between 0 and 30 (Bistability Requirement)
+        
+    else:
+
+        return False
+
+def ValidateThickness(Input, CellSize):
+
+    if Input == "": return True
+
+    if ValidateInput(Input):
+
+        return True if 0 <= float(Input) <= 0.3 * CellSize else False # Thickness must be less than or equal to 30% of cell size (Bistability Requirement)
+
+    else:
+
+        return False
 
 class ApplicationMenu: # Tkinter Application Menu
 
@@ -280,11 +303,11 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
         Thickness = WindowRender.StringVar(value = Module.Data[0])
         Theta = WindowRender.StringVar(value = Module.Data[1])
         ThicknessLabel = WindowRender.Label(AdjustmentWindow, text = "Width: ", font = ("Bahnschrift", 10))
-        ThicknessInput = WindowRender.Entry(AdjustmentWindow, textvariable = Thickness, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(ValidateInput), '%P'))
+        ThicknessInput = WindowRender.Entry(AdjustmentWindow, textvariable = Thickness, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(lambda Input: ValidateThickness(Input, Module.MetaData[0])), '%P'))
         ThicknessLabel.grid(row = 1, column = 0, padx = 15)
         ThicknessInput.grid(row = 1, column = 1, ipady = 10, ipadx = 10)
         ThetaLabel = WindowRender.Label(AdjustmentWindow, text = "Theta: ", font = ("Bahnschrift", 10))
-        ThetaInput = WindowRender.Entry(AdjustmentWindow, textvariable = Theta, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(ValidateInput), '%P'))
+        ThetaInput = WindowRender.Entry(AdjustmentWindow, textvariable = Theta, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(ValidateTheta), '%P'))
         ThetaLabel.grid(row = 2, column = 0, padx = 15)
         ThetaInput.grid(row = 2, column = 1, ipady = 10, ipadx = 10)
         CloseButton = WindowRender.Button(AdjustmentWindow, text="Close", command = CellFade, width = 15, highlightthickness = 0, bd = 0, font = ("Bahnschrift", 10))
@@ -296,7 +319,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
         def UpdateValues(*Values):
     
-            if Thickness.get() != "" and Theta.get() != "": 
+            if Thickness.get() != "" and Theta.get() != "" and ValidateTheta(Theta.get()) and ValidateThickness(Thickness.get(), Module.MetaData[0]): 
                 
                 Module.Data[0], Module.Data[1] = float(Thickness.get()), float(Theta.get())
 
