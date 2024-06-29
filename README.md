@@ -10,13 +10,13 @@ A lightweight application to create Bistable Auxetic Surfaces, programmed in pur
 
 Dependencies:
 
-- [`NumPy`](https://numpy.org/install/)  
-- [`PyGame`](https://www.pygame.org/)
-- [`Draw2Svg`](https://pypi.org/project/draw2Svg/)
-- `Math`
-- `Tkinter`
-- `Ctypes`
-- `...`
+- [x] [`NumPy`](https://numpy.org/install/)  
+- [x] [`PyGame`](https://www.pygame.org/)
+- [x] [`Draw2Svg`](https://pypi.org/project/draw2Svg/)
+- [x] `Math`
+- [x] `Tkinter`
+- [x] `Ctypes`
+- [x] `...`
 
 ## ```TODO:```
 
