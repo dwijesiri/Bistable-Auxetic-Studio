@@ -24,10 +24,8 @@ Dependencies:
 -
 - ![GIL Error ...](Resources/Image_2.png)
 - 
-- [ ] I am currently investigating FEM simulations to visualise and predict the deployed state:
--
-- ![FEA Simulation ...](Resources/Video_1.gif)
-- 
+- [ ] I am currently investigating FEM simulations to visualise and predict the deployed state:\
+- ![FEA Simulation ...](Resources/Video_1.gif)\
 - [ ] The data from FEM could be fed into a CNN (Convolutional Neural Network) to efficiently predict the deployed state.
 
 ##  ```Completed:```
