@@ -50,7 +50,7 @@ Cosine = lambda I: Math.cos(Math.radians(I))
 
 Sine = lambda I: Math.sin(Math.radians(I))
 
-def WindowSize(): # Gets Size of Screen
+def WindowSize(): # Gets Size of Screen (Including Tkinter UI)
 
     WindowStatistics.windll.user32.SetProcessDPIAware()
         
@@ -414,7 +414,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
                 Module.GUI.ScreenDimensions[1],
                 origin = (0, 0))
             
-        Module.Clock.tick(40)
+        Module.Clock.tick(40) # Limit Frame Rate to 40 FPS
         RenderEngine.draw.rect(ScreenObject, # Drawing Border for Grid
         (0, 0, 0),
         (OffSet[0] - 0.5 * Module.CellSize, OffSet[1] - Math.sqrt(3 * Module.CellSize ** 2 / 4), # Grid Moves With Offset
@@ -423,7 +423,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
         if RenderEngine.time.get_ticks() < 1000: Module.RenderGrid()
         Module.HandleEventListeners()
         UpdateScreen()
-        if Module.RunProgram: WindowRendering.after(25, Module.RenderLoop) # Frame Rate of 40 FPS
+        if Module.RunProgram: WindowRendering.after(20, Module.RenderLoop) # Theoretical Frame Rate of 50 FPS
         else: ClearEntireScreen(ScreenObject)
 
     def RenderGrid(Module):
@@ -537,7 +537,15 @@ class StudioGraphicalElementI:
         WindowRendering.bind('<Right>', lambda I: Module.AdjustOffset([-2, 0])) # Binds to arrowkeys
         WindowRendering.bind('<Up>', lambda I: Module.AdjustOffset([0, 2])) # RenderEngine Event Listener does not work for keyboard strokes.
         WindowRendering.bind('<Down>', lambda I: Module.AdjustOffset([0, -2]))
+        WindowRendering.bind('<Configure>', Module.ScreenRotationResize) # Handle Screen Rotation
 
+    def ScreenRotationResize(Module, Arguments): # In Case of Screen Rotation Grid Will Adapt
+
+        global OffSet
+        if not (LimitScreenSize((750, 750, 2000, 1100)) and GetScreenScale() >= 1 and GetScreenScale() <= 1.5): Module.Exit()
+        OffSet[0] = 0 if Module.StudioApplication.Dimension[0] > int(WindowSize()[0] // Module.Arguments[0]) else (WindowSize()[0] / 2 - 0.5 * Module.Arguments[0] * (Module.StudioApplication.Dimension[0] - 0.5)) # Adjust in case of Screen Rotation
+        OffSet[1] = 0 if Module.StudioApplication.Dimension[1] > int(WindowSize()[1] // Math.sqrt(3 * Module.Arguments[0] ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * Module.Arguments[0] ** 2 / 4) * Module.StudioApplication.Dimension[1])       
+            
     def AdjustOffset(Module, Input):
 
         global OffSet # Apply Offset adjustment, and check, if offsets take screen off canvas.
@@ -579,7 +587,7 @@ class StudioGraphicalElementI:
             if FileSource["Grid Size"][0] >= 10 and FileSource["Grid Size"][1] >= 10 and FileSource["Grid Size"][0] <= 80 and FileSource["Grid Size"][1] <= 40:
 
                 global OffSet
-                OffSet[0] = 0 if FileSource["Grid Size"][0] > int(WindowSize()[0] // 50) else (WindowSize()[0] / 2 - 0.5 * 50 * FileSource["Grid Size"][0])# Reset OffSet to [0, 0] if Screen Smaller than File Dimensions
+                OffSet[0] = 0 if FileSource["Grid Size"][0] > int(WindowSize()[0] // 50) else (WindowSize()[0] / 2 - 0.5 * 50 * (FileSource["Grid Size"][0] - 0.5))# Reset OffSet to [0, 0] if Screen Smaller than File Dimensions (0.5 is for Grid Offset of 1/2 Cell)
                 OffSet[1] = 0 if FileSource["Grid Size"][1] > int(WindowSize()[1] // Math.sqrt(3 * 50 ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * 50 ** 2 / 4) * FileSource["Grid Size"][1]) # Otherwise, Align it in the center of the screen.
                 Module.StudioApplication.RunProgram = False
                 Module.StudioApplication = Grid(Module, 50, 
