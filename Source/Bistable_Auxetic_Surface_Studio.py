@@ -1,4 +1,3 @@
-
 #
 # Bistable Auxetic Mechanical Studio - Developed By Dinuk Wijesiri
 #
@@ -206,7 +205,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
     def Auxetics(Module): # Make Auxetic cuts in isometric cell (Most memory intensive component)
 
-        JointWidth = 4 # Width of Auxetic Hinge
+        JointWidth = 2 # Width of Auxetic Hinge
 
         ParameterI = (((Module.MetaData[0] - (1.5 * Module.Data[0]) - (Sine(60) * Module.Data[0] / Tangent(60 - Module.Data[1]))) / (1 + (Tangent(Module.Data[1]) / Tangent(60 - Module.Data[1])))) / Cosine(Module.Data[1])) - JointWidth # Length of Each Auxetic Line (2.5 is Gap Width)
 
@@ -338,7 +337,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
 
     def __init__(Module, GUI, CellSize = 50, Input = [], Dimension = [0, 0]):
 
-        Module.Clock = RenderEngine.time.Clock() # Controls Frame Rate (25 FPS)
+        Module.Clock = RenderEngine.time.Clock() # Controls Frame Rate (40 FPS)
         Module.GUI = GUI
         Module.RunProgram = True
         Module.Dimension = Dimension if bool(Dimension[0]) and bool(Dimension[1]) else [
@@ -424,7 +423,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
         if RenderEngine.time.get_ticks() < 1000: Module.RenderGrid()
         Module.HandleEventListeners()
         UpdateScreen()
-        if Module.RunProgram: WindowRendering.after(25, Module.RenderLoop) # Frame Rate of 25 FPS
+        if Module.RunProgram: WindowRendering.after(25, Module.RenderLoop) # Frame Rate of 40 FPS
         else: ClearEntireScreen(ScreenObject)
 
     def RenderGrid(Module):
@@ -441,13 +440,13 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
 
     def HandleEventListeners(Module):
 
-        Module.EventLog = RenderEngine.event.get() # Get All Event Listeners
+        Module.EventLog = RenderEngine.event.get(pump = False) # Get All Event Listeners (Use Pump = False to Avoid GIL Error)
 
         for _ in Module.EventLog: # Loop through and process triggered Events
             
             if _.type == RenderEngine.QUIT: 
 
-                Module.RunProgram = False # Avoid GIL Error
+                Module.RunProgram = False # End Process
                 
                 RenderEngine.quit() # Ends process on quitting application.
 
@@ -480,6 +479,8 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
                 elif _.button == 5: # Scrolling Down
 
                     Module.GUI.AdjustOffset([0, -4])
+
+                RenderEngine.event.pump() # Update Events and Process Queue
 
                 Module.RenderGrid()
 
@@ -632,7 +633,7 @@ class StudioGraphicalElementI:
 
         Module.GridMap = []
         Module.StudioApplication.RunProgram = False
-        RenderEngine.display.quit() # End RenderEngine Process to Avoid GIL Error
+        RenderEngine.display.quit() # End RenderEngine Process
         WindowRendering.destroy() # Close Application
         print("Session Completed.\n")
 
