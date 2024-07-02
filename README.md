@@ -12,24 +12,24 @@ Dependencies:
 
 - [x] [`NumPy`](https://numpy.org/install/)  
 - [x] [`PyGame`](https://www.pygame.org/)
-- [x] [`Draw2Svg`](https://pypi.org/project/draw2Svg/)
+- [x] [`DrawSvg`](https://pypi.org/project/drawsvg/)
 - [x] `Math`
 - [x] `Tkinter`
 - [x] `Ctypes`
 - [x] `...`
 
+A `.exe` file can be compiled through `PyInstaller`. Simply get [PyInstaller](https://pypi.org/project/pyinstaller/) and use the command ```pyinstaller Bistable_Auxetic_Studio.spec``` in the `Source` directory.
+
 ## ```TODO:```
 
-- [ ] There is a bug which makes the application crash about every 1 in 8 times, due to a Python GIL error.<br><br>
--
-- ![GIL Error ...](Resources/Image_2.png)<br><br>
-- 
 - [ ] I am currently investigating FEM simulations to visualise and predict the deployed state: <br><br>
 - ![FEA Simulation ...](Resources/Video_1.gif) <br><br>
 - [ ] The data from FEM could be fed into a CNN (Convolutional Neural Network) to efficiently predict the deployed state.
 
-##  ```Completed:```
+##  ```Issues Solved:```
 
+- [x] There is a bug which makes the application crash about every 1 in 8 times, due to a Python GIL error.<br><br>
+- ![GIL Error ...](Resources/Image_2.png)<br><br>
 - [x] Cells take any positive Thickness and Theta value, regardless of whether it is realistic or not. (Thickness should ideally be less than 30% of Cell Size, and Theta should be less than 30 Degrees)
       
 ## ```Acknowledgements and Credits:```
