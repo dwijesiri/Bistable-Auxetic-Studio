@@ -1,4 +1,12 @@
-
 img {
-  border-radius: 5px;
+  border-radius: 20px !important;
 }
+
+html {
+  font-family: 'courier', monospace !important;
+}
+
+p {
+  text-decoration: bold !important;
+  color: rgb(0, 255, 213) !important;
+} 
