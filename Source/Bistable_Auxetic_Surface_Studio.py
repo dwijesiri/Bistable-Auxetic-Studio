@@ -86,7 +86,7 @@ def ValidateTheta(Input):
 
     if ValidateInput(Input): # Check if Input is formatted correctly
         
-        return True if 0 <= float(Input) <= 30 else False # Theta must be between 0 and 30 (Bistability Requirement)
+        return True if 0 <= float(Input) <= 22.5 else False # Theta must be between 0 and 30 (Bistability Requirement)
         
     else:
 
@@ -205,7 +205,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
     def Auxetics(Module): # Make Auxetic cuts in isometric cell (Most memory intensive component)
 
-        JointWidth = 2 # Width of Auxetic Hinge
+        JointWidth = 3 # Width of Auxetic Hinge
 
         ParameterI = (((Module.MetaData[0] - (1.5 * Module.Data[0]) - (Sine(60) * Module.Data[0] / Tangent(60 - Module.Data[1]))) / (1 + (Tangent(Module.Data[1]) / Tangent(60 - Module.Data[1])))) / Cosine(Module.Data[1])) - JointWidth # Length of Each Auxetic Line (2.5 is Gap Width)
 
