@@ -2,7 +2,7 @@
 
 
 a = Analysis(
-    ['Bistable_Auxetic_Studio.py'],
+    ['Bistable_Auxetic_Surface_Studio.py'],
     pathex=[],
     binaries=[],
     datas=[("Logo_1.png", ".")],
