@@ -123,7 +123,8 @@ class ApplicationMenu: # Tkinter Application Menu
             Branch = WindowRender.Menu(
                 Module.MenuRoot,
                 tearoff = False,
-                font = ("Bahnschrift", 8)
+                font = ("Bahnschrift", 8),
+                activeborderwidth = 3
             )
 
             [Branch.add_command(
@@ -136,10 +137,10 @@ class ApplicationMenu: # Tkinter Application Menu
             underline = 0)
 
 def ResourceLocator(InputPath): # Script Can Locate Resources across Working Directories
-
+    
     try: Path = ArgumentManage._MEIPASS
 
-    except Exception: Path = System.path.abspath(".")
+    except Exception: Path = System.path.dirname(__file__)
 
     return System.path.join(Path, InputPath)
 
@@ -192,9 +193,9 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
         if Result == None or Result.Data[2] == False:  # If no overlap of selected cells, draw outline
 
-            if Position == 0: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0], Module.GridPoints[1][1], Module.GridPoints[0][0], Module.GridPoints[0][1], fill = "none", stroke = "black"))
-            elif Position == 1: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0], Module.GridPoints[1][1], Module.GridPoints[2][0], Module.GridPoints[2][1], fill = "none", stroke = "black"))
-            elif Position == 2: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[2][0], Module.GridPoints[2][1], Module.GridPoints[0][0], Module.GridPoints[0][1], fill = "none", stroke = "black"))
+            if Position == 0: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
+            elif Position == 1: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            elif Position == 2: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
 
     def GetCells(Module, Position): # Gets Surrounding Grid Cell Objects (Based on Position Argument)
 
@@ -221,7 +222,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (255, 0, 0), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points =  [(Module.MetaData[1] + Module.MetaData[0] - Module.CellAveraging(1) + OffSet[0], Module.MetaData[2] + OffSet[1]),
             PolarToNormal(ParameterII, 120 + Module.Data[1],
@@ -231,7 +232,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (0, 0, 200), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [PolarToNormal(Module.MetaData[0] - Module.CellAveraging(2), 120, (Module.MetaData[1] + Module.MetaData[0] + OffSet[0], Module.MetaData[2] + OffSet[1])),
             PolarToNormal(ParameterII, 240 + Module.Data[1], 
@@ -241,7 +242,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (195, 0, 255), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
         else: # If Cell is Normal ... 
 
@@ -253,7 +254,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (255, 0, 0), False, Points, 2)
             
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [(Module.MetaData[1] + Module.MetaData[0] - Module.CellAveraging(1) + OffSet[0], Module.MetaData[2] + OffSet[1]),
             PolarToNormal(ParameterII, 240 - Module.Data[1], 
@@ -263,7 +264,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (0, 0, 200), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [PolarToNormal(Module.MetaData[0] - Module.CellAveraging(2), 240, (Module.MetaData[1] + Module.MetaData[0] + OffSet[0], Module.MetaData[2] + OffSet[1])),
             PolarToNormal(ParameterII, 120 - Module.Data[1], 
@@ -273,7 +274,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
             
             RenderEngine.draw.aalines(ScreenObject, (195, 0, 255), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0], Points[0][1], Points[1][0], Points[1][1], Points[2][0], Points[2][1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
         [Module.CellOutline(_) for _ in range(3)] # Check Surrounding Cells and Draw SVG Outline
 
@@ -298,15 +299,16 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
             AdjustmentWindow.destroy()
             FrameObject.unbind_all("<Button-1>")
             FrameObject.unbind_all("<Button-3>")
+            UpdateScreen()
 
         Thickness = WindowRender.StringVar(value = Module.Data[0])
         Theta = WindowRender.StringVar(value = Module.Data[1])
         ThicknessLabel = WindowRender.Label(AdjustmentWindow, text = "Width: ", font = ("Bahnschrift", 10))
-        ThicknessInput = WindowRender.Entry(AdjustmentWindow, textvariable = Thickness, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(lambda Input: ValidateThickness(Input, Module.MetaData[0])), '%P'))
+        ThicknessInput = ExtensionsI.Entry(AdjustmentWindow, textvariable = Thickness, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(lambda Input: ValidateThickness(Input, Module.MetaData[0])), '%P'))
         ThicknessLabel.grid(row = 1, column = 0, padx = 15)
         ThicknessInput.grid(row = 1, column = 1, ipady = 10, ipadx = 10)
         ThetaLabel = WindowRender.Label(AdjustmentWindow, text = "Theta: ", font = ("Bahnschrift", 10))
-        ThetaInput = WindowRender.Entry(AdjustmentWindow, textvariable = Theta, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(ValidateTheta), '%P'))
+        ThetaInput = ExtensionsI.Entry(AdjustmentWindow, textvariable = Theta, font = ("Bahnschrift", 10), width = 5, justify = "center", validate = "key", validatecommand = (AdjustmentWindow.register(ValidateTheta), '%P'))
         ThetaLabel.grid(row = 2, column = 0, padx = 15)
         ThetaInput.grid(row = 2, column = 1, ipady = 10, ipadx = 10)
         CloseButton = WindowRender.Button(AdjustmentWindow, text="Close", command = CellFade, width = 15, highlightthickness = 0, bd = 0, font = ("Bahnschrift", 10))
@@ -344,7 +346,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
         int(WindowSize()[0] / CellSize) + 1,
         int(WindowSize()[1] // (Math.sqrt( 3 * (CellSize ** 2) / 4)) + 1)]
         Module.CellSize = CellSize
-        Module.ExportSVG = Export.Drawing(Module.GUI.ScreenDimensions[0], Module.GUI.ScreenDimensions[1], origin = (0, 0))
+        Module.ExportSVG = Export.Drawing(Module.Dimension[0] * CellSize, Module.Dimension[1] * Math.sqrt(3 * (CellSize ** 2) / 4), origin = (0, 0))
 
         Module.Grid = [
             
@@ -410,10 +412,11 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
             ClearEntireScreen(ScreenObject)
 
             Module.ExportSVG = Export.Drawing(
-                Module.GUI.ScreenDimensions[0],
-                Module.GUI.ScreenDimensions[1],
+                Module.Dimension[0] * Module.CellSize,
+                Module.Dimension[1] * Math.sqrt(3 * (Module.CellSize ** 2) / 4),
                 origin = (0, 0))
-            
+        
+        global CanvasFocus, OffSet
         Module.Clock.tick(40) # Limit Frame Rate to 40 FPS
         RenderEngine.draw.rect(ScreenObject, # Drawing Border for Grid
         (0, 0, 0),
@@ -422,21 +425,24 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
         Math.sqrt(3 * Module.CellSize ** 2 / 4) * (Module.Dimension[1] + 1)), 1, 5)
         if RenderEngine.time.get_ticks() < 1000: Module.RenderGrid()
         Module.HandleEventListeners()
-        UpdateScreen()
         if Module.RunProgram: WindowRendering.after(20, Module.RenderLoop) # Theoretical Frame Rate of 50 FPS
         else: ClearEntireScreen(ScreenObject)
+        if not CanvasFocus: UpdateScreen()
+        CanvasFocus = RenderEngine.mouse.get_focused()
 
     def RenderGrid(Module):
 
         ClearEntireScreen(ScreenObject)
 
         Module.ExportSVG = Export.Drawing(
-            Module.GUI.ScreenDimensions[0],
-            Module.GUI.ScreenDimensions[1],
+            Module.Dimension[0] * Module.CellSize,
+            Module.Dimension[1] * Math.sqrt(3 * (Module.CellSize ** 2) / 4),
             origin = (0, 0))
         
         [[XPosition.CellRendering() if XPosition != None else None
         for XPosition in YPosition] for YPosition in Module.Grid]
+
+        UpdateScreen()
 
     def HandleEventListeners(Module):
 
@@ -517,7 +523,8 @@ class StudioGraphicalElementI:
 
     def CreateGUIWindow(Module): # Setting Up Tkinter and Pygame
 
-        global WindowRendering, FrameObject, ScreenObject, OffSet
+        global WindowRendering, FrameObject, ScreenObject, OffSet, CanvasFocus
+        CanvasFocus = False
         WindowRendering = WindowRender.Tk()
         WindowRendering.title("Bistable Auxetic Surface Studio")
         WindowRendering.attributes("-fullscreen", True) # Sets window to FullScreen
