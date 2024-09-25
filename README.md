@@ -13,6 +13,7 @@ Dependencies:
 - [x] [`NumPy`](https://numpy.org/install/)  
 - [x] [`PyGame`](https://www.pygame.org/)
 - [x] [`DrawSvg`](https://pypi.org/project/drawsvg/)
+- [x] [`Pillow`](https://pypi.org/project/pillow/) 
 - [x] `Math`
 - [x] `Tkinter`
 - [x] `Ctypes`
