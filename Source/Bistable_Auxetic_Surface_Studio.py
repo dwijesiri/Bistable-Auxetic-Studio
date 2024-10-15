@@ -466,13 +466,13 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
 
                 if _.button == 1:
                     
-                    for Cell in Module.Grid[int((_.pos[1] // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
+                    for Cell in Module.Grid[int(((_.pos[1] - OffSet[1]) // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
 
                         if Cell != None: Cell.ClickEvent() if TrianglePointTestII(_.pos, *(Cell.GridPoints)) else None
     
                 elif _.button == 3:
 
-                    for Cell in Module.Grid[int((_.pos[1] // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
+                    for Cell in Module.Grid[int(((_.pos[1] - OffSet[1]) // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
 
                         if Cell != None: Cell.CellValueAdjustment() if TrianglePointTestII(_.pos, *(Cell.GridPoints)) and Cell.Data[2] else None
                         
@@ -547,9 +547,12 @@ class StudioGraphicalElementI:
     def ScreenRotationResize(Module, Arguments): # In Case of Screen Rotation Grid Will Adapt
 
         global OffSet
-        if not (LimitScreenSize((750, 750, 2000, 1100)) and GetScreenScale() >= 1 and GetScreenScale() <= 1.5): Module.Exit()
-        OffSet[0] = 0 if Module.StudioApplication.Dimension[0] > int(WindowSize()[0] // Module.Arguments[0]) else (WindowSize()[0] / 2 - 0.5 * Module.Arguments[0] * (Module.StudioApplication.Dimension[0] - 0.5)) # Adjust in case of Screen Rotation
-        OffSet[1] = 0 if Module.StudioApplication.Dimension[1] > int(WindowSize()[1] // Math.sqrt(3 * Module.Arguments[0] ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * Module.Arguments[0] ** 2 / 4) * Module.StudioApplication.Dimension[1])       
+        
+        if Arguments.widget == WindowRendering:
+
+            if not (LimitScreenSize((750, 750, 2000, 1100)) and GetScreenScale() >= 1 and GetScreenScale() <= 1.5): Module.Exit()
+            OffSet[0] = 0 if Module.StudioApplication.Dimension[0] > int(WindowSize()[0] // Module.Arguments[0]) else (WindowSize()[0] / 2 - 0.5 * Module.Arguments[0] * (Module.StudioApplication.Dimension[0] - 0.5)) # Adjust in case of Screen Rotation
+            OffSet[1] = 0 if Module.StudioApplication.Dimension[1] > int(WindowSize()[1] // Math.sqrt(3 * Module.Arguments[0] ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * Module.Arguments[0] ** 2 / 4) * Module.StudioApplication.Dimension[1])       
             
     def AdjustOffset(Module, Input):
 
