@@ -193,9 +193,9 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
         if Result == None or Result.Data[2] == False:  # If no overlap of selected cells, draw outline
 
-            if Position == 0: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
-            elif Position == 1: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], fill = "none", stroke = "black"))
-            elif Position == 2: Module.GridSearch.ExportSVG.append(Export.Lines(Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
+            if Position == 0: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
+            elif Position == 1: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            elif Position == 2: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
 
     def GetCells(Module, Position): # Gets Surrounding Grid Cell Objects (Based on Position Argument)
 
@@ -222,7 +222,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (255, 0, 0), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points =  [(Module.MetaData[1] + Module.MetaData[0] - Module.CellAveraging(1) + OffSet[0], Module.MetaData[2] + OffSet[1]),
             PolarToNormal(ParameterII, 120 + Module.Data[1],
@@ -232,7 +232,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (0, 0, 200), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [PolarToNormal(Module.MetaData[0] - Module.CellAveraging(2), 120, (Module.MetaData[1] + Module.MetaData[0] + OffSet[0], Module.MetaData[2] + OffSet[1])),
             PolarToNormal(ParameterII, 240 + Module.Data[1], 
@@ -242,7 +242,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (195, 0, 255), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
         else: # If Cell is Normal ... 
 
@@ -254,7 +254,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (255, 0, 0), False, Points, 2)
             
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [(Module.MetaData[1] + Module.MetaData[0] - Module.CellAveraging(1) + OffSet[0], Module.MetaData[2] + OffSet[1]),
             PolarToNormal(ParameterII, 240 - Module.Data[1], 
@@ -264,7 +264,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
             RenderEngine.draw.aalines(ScreenObject, (0, 0, 200), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
             Points = [PolarToNormal(Module.MetaData[0] - Module.CellAveraging(2), 240, (Module.MetaData[1] + Module.MetaData[0] + OffSet[0], Module.MetaData[2] + OffSet[1])),
             PolarToNormal(ParameterII, 120 - Module.Data[1], 
@@ -274,7 +274,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
             
             RenderEngine.draw.aalines(ScreenObject, (195, 0, 255), False, Points, 2)
 
-            Module.GridSearch.ExportSVG.append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[2].append(Export.Lines(Points[0][0] - OffSet[0], Points[0][1] - OffSet[1], Points[1][0] - OffSet[0], Points[1][1] - OffSet[1], Points[2][0] - OffSet[0], Points[2][1] - OffSet[1], fill = "none", stroke = "black"))
 
         [Module.CellOutline(_) for _ in range(3)] # Check Surrounding Cells and Draw SVG Outline
 
@@ -346,7 +346,7 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
         int(WindowSize()[0] / CellSize) + 1,
         int(WindowSize()[1] // (Math.sqrt( 3 * (CellSize ** 2) / 4)) + 1)]
         Module.CellSize = CellSize
-        Module.ExportSVG = Export.Drawing(Module.Dimension[0] * CellSize, Module.Dimension[1] * Math.sqrt(3 * (CellSize ** 2) / 4), origin = (0, 0))
+        Module.ExportSVG = [Export.Drawing(Module.Dimension[0] * CellSize, Module.Dimension[1] * Math.sqrt(3 * (CellSize ** 2) / 4), origin = (0, 0)), Export.Group(id = "Outline"), Export.Group(id = "Auxetics")]
 
         Module.Grid = [
             
@@ -411,10 +411,13 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
 
             ClearEntireScreen(ScreenObject)
 
-            Module.ExportSVG = Export.Drawing(
+            Module.ExportSVG = [Export.Drawing(
                 Module.Dimension[0] * Module.CellSize,
                 Module.Dimension[1] * Math.sqrt(3 * (Module.CellSize ** 2) / 4),
-                origin = (0, 0))
+                origin = (0, 0)), 
+                Export.Group(id = "Outline"), 
+                Export.Group(id = "Auxetics")
+            ]
         
         global CanvasFocus, OffSet
         Module.Clock.tick(40) # Limit Frame Rate to 40 FPS
@@ -434,10 +437,13 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
 
         ClearEntireScreen(ScreenObject)
 
-        Module.ExportSVG = Export.Drawing(
+        Module.ExportSVG = [Export.Drawing(
             Module.Dimension[0] * Module.CellSize,
             Module.Dimension[1] * Math.sqrt(3 * (Module.CellSize ** 2) / 4),
-            origin = (0, 0))
+            origin = (0, 0)), 
+            Export.Group(id = "Outline"), 
+            Export.Group(id = "Auxetics")
+        ]
         
         [[XPosition.CellRendering() if XPosition != None else None
         for XPosition in YPosition] for YPosition in Module.Grid]
@@ -459,25 +465,17 @@ class Grid: # Sets up Grid of GridCell objects based on preset argument or Scree
             elif _.type == RenderEngine.MOUSEBUTTONDOWN:
 
                 if _.button == 1:
+                    
+                    for Cell in Module.Grid[int(((_.pos[1] - OffSet[1]) // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
 
-                    for YPosition in Module.Grid:
-
-                        for XPosition in YPosition:
-
-                            if XPosition != None:
-
-                                XPosition.ClickEvent() if TrianglePointTestII(_.pos, *(XPosition.GridPoints)) else None
-
+                        if Cell != None: Cell.ClickEvent() if TrianglePointTestII(_.pos, *(Cell.GridPoints)) else None
+    
                 elif _.button == 3:
 
-                    for YPosition in Module.Grid:
+                    for Cell in Module.Grid[int(((_.pos[1] - OffSet[1]) // Math.sqrt(3 * (Module.CellSize ** 2) / 4)) + 1)]:
 
-                        for XPosition in YPosition:
-
-                            if XPosition != None:
-
-                                XPosition.CellValueAdjustment() if TrianglePointTestII(_.pos, *(XPosition.GridPoints)) and XPosition.Data[2] else None
-
+                        if Cell != None: Cell.CellValueAdjustment() if TrianglePointTestII(_.pos, *(Cell.GridPoints)) and Cell.Data[2] else None
+                        
                 elif _.button == 4: # Scrolling Up
 
                     Module.GUI.AdjustOffset([0, 4])
@@ -549,9 +547,12 @@ class StudioGraphicalElementI:
     def ScreenRotationResize(Module, Arguments): # In Case of Screen Rotation Grid Will Adapt
 
         global OffSet
-        if not (LimitScreenSize((750, 750, 2000, 1100)) and GetScreenScale() >= 1 and GetScreenScale() <= 1.5): Module.Exit()
-        OffSet[0] = 0 if Module.StudioApplication.Dimension[0] > int(WindowSize()[0] // Module.Arguments[0]) else (WindowSize()[0] / 2 - 0.5 * Module.Arguments[0] * (Module.StudioApplication.Dimension[0] - 0.5)) # Adjust in case of Screen Rotation
-        OffSet[1] = 0 if Module.StudioApplication.Dimension[1] > int(WindowSize()[1] // Math.sqrt(3 * Module.Arguments[0] ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * Module.Arguments[0] ** 2 / 4) * Module.StudioApplication.Dimension[1])       
+        
+        if Arguments.widget == WindowRendering:
+
+            if not (LimitScreenSize((750, 750, 2000, 1100)) and GetScreenScale() >= 1 and GetScreenScale() <= 1.5): Module.Exit()
+            OffSet[0] = 0 if Module.StudioApplication.Dimension[0] > int(WindowSize()[0] // Module.Arguments[0]) else (WindowSize()[0] / 2 - 0.5 * Module.Arguments[0] * (Module.StudioApplication.Dimension[0] - 0.5)) # Adjust in case of Screen Rotation
+            OffSet[1] = 0 if Module.StudioApplication.Dimension[1] > int(WindowSize()[1] // Math.sqrt(3 * Module.Arguments[0] ** 2 / 4)) else (WindowSize()[1] / 2 - 0.5 * Math.sqrt(3 * Module.Arguments[0] ** 2 / 4) * Module.StudioApplication.Dimension[1])       
             
     def AdjustOffset(Module, Input):
 
@@ -633,7 +634,9 @@ class StudioGraphicalElementI:
 
         if FileSource != "":
 
-            Module.StudioApplication.ExportSVG.save_svg(FileSource)
+            Module.StudioApplication.ExportSVG[0].append(Module.StudioApplication.ExportSVG[1])
+            Module.StudioApplication.ExportSVG[0].append(Module.StudioApplication.ExportSVG[2])
+            Module.StudioApplication.ExportSVG[0].save_svg(FileSource)
 
     def Reset(Module):
 
