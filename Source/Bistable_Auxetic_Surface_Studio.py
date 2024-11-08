@@ -177,8 +177,7 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
         Module.MetaData[2] + (Module.MetaData[0] * (3 ** 0.5) * 0.5) * (-1 if Module.MetaData[3] else 1) + OffSet[1]),
         (Module.MetaData[1] + OffSet[0], Module.MetaData[2] + OffSet[1]),
         (Module.MetaData[1] + OffSet[0] + Module.MetaData[0], Module.MetaData[2] + OffSet[1])]
-        if Module.Data[2]: RenderEngine.draw.aalines(ScreenObject, (0,0, 0), True, Points, 5) # Selected Form - Triangles
-        else: [RenderEngine.draw.circle(ScreenObject, (0, 0, 0), Points[_], 2) for _ in range(3)] # Unselected Form - Circular Nodes
+        [RenderEngine.draw.circle(ScreenObject, (0, 0, 0), Points[_], 2) for _ in range(3)] # Circular Nodes On Grid
         Module.GridPoints = Points
 
     def CellAveraging(Module, Position): # Averages Thickness Values in Neighbouring cells (enables cell cuts to align)
@@ -193,9 +192,16 @@ class GridCell: # Each Component is a Single Bistable Auxetic Cell
 
         if Result == None or Result.Data[2] == False:  # If no overlap of selected cells, draw outline
 
-            if Position == 0: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
-            elif Position == 1: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[1][0] - OffSet[0], Module.GridPoints[1][1] - OffSet[1], Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], fill = "none", stroke = "black"))
-            elif Position == 2: Module.GridSearch.ExportSVG[1].append(Export.Lines(Module.GridPoints[2][0] - OffSet[0], Module.GridPoints[2][1] - OffSet[1], Module.GridPoints[0][0] - OffSet[0], Module.GridPoints[0][1] - OffSet[1], fill = "none", stroke = "black"))
+            Module.GridSearch.ExportSVG[1].append(
+                Export.Lines(
+                    Module.GridPoints[Position][0] - OffSet[0], 
+                    Module.GridPoints[Position][1] - OffSet[1], 
+                    Module.GridPoints[(Position + 1) % 3][0] - OffSet[0], 
+                    Module.GridPoints[(Position + 1) % 3][1] - OffSet[1], 
+                    fill = "none", stroke = "black"
+            ))
+             
+            RenderEngine.draw.aalines(ScreenObject, (0, 0, 0), True, [Module.GridPoints[Position], Module.GridPoints[(Position + 1) % 3]], 5)
 
     def GetCells(Module, Position): # Gets Surrounding Grid Cell Objects (Based on Position Argument)
 
